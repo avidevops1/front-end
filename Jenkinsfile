@@ -1,8 +1,13 @@
- pipeline{
+ pipeline {
 
-    agent any    
-
-    stages{
+  agent {
+   dokcer {
+     image 'node:4-alpine'
+   }
+   
+  }
+   
+      stages{
         stage('build'){
             steps{
                 echo 'this is the build job'
@@ -20,6 +25,7 @@
             steps{
                 echo 'this is the package job'
                 sh 'npm run package'
+                archiveArtifacts '**/distribution/*.zip
             }
         }
     }
